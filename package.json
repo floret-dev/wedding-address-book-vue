@@ -1,0 +1,19 @@
+{
+  "name": "wedding-address-book-vue",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "dev": "vite",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "private": true,
+  "devDependencies": {
+    "@vitejs/plugin-vue": "^6.0.7",
+    "vite": "^8.0.16"
+  },
+  "dependencies": {
+    "primeicons": "^7.0.0",
+    "vue": "^3.5.35"
+  }
+}

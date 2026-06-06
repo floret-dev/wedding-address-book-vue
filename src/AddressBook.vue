@@ -1,5 +1,4 @@
 <script>
-import { ref, reactive } from 'vue';
 import { getGuestForm, sendFormView, sendFormLink, submitGuestDetails } from './service';
 import 'primeicons/primeicons.css';
 
@@ -20,22 +19,22 @@ export default {
       viewId: getInitialViewId(),
       defaultErrorMessage: 'Please click the link that was sent to your mobile phone number or enter your phone number below. ' +
           'If you are still having issues reach out to the bride or groom directly.',
-      formData: reactive({
+      formData: {
         name: '',
         email: '',
         streetAddress: '',
         city: '',
         state: '',
         zipCode: '',
-      }),
-      additionalGuests: ref([]),
-      isSubmitted: ref(false),
-      isLoading: ref(false),
-      error: ref(null),
-      phoneNumber: ref(''),
-      phoneNumberSubmitted: ref(''),
-      isSubmitting: ref(false),
-      readOnly: ref(false),
+      },
+      additionalGuests: [],
+      isSubmitted: false,
+      isLoading: false,
+      error: null,
+      phoneNumber: '',
+      phoneNumberSubmitted: false,
+      isSubmitting: false,
+      readOnly: false
     }
   },
   mounted() {
@@ -54,7 +53,7 @@ export default {
           this.formData.zipCode = details.zipCode;
         }
       })
-          .then(() => sendFormView(viewId))
+          .then(() => sendFormView(this.viewId))
           .then(response => {
             console.log('View tracked: ', response)
           })
@@ -64,8 +63,8 @@ export default {
     }
   },
   methods: {
-    handleGuestChange() {
-      const newGuests = [...additionalGuests];
+    handleGuestChange(index, field, value) {
+      const newGuests = [...this.additionalGuests];
       newGuests[index] = { ...newGuests[index], [field]: value, id: newGuests[index].id };
       this.additionalGuests = newGuests;
     },
